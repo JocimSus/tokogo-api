@@ -1,0 +1,16 @@
+services:
+  tokogo-api-develop:
+    image: jocimsus/tokogo-api:develop
+    container_name: tokogo-api-develop
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    ports:
+      - 3334:3333
+    env_file:
+      - .env.develop
+    networks:
+      - tokogo-net
+
+networks:
+  tokogo-net:
+    external: true

@@ -3,7 +3,6 @@ name: Docker Build and Push
 on:
   push:
     branches:
-      - main
       - develop
 
 jobs:
@@ -26,22 +25,12 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and Push Docker Image main branch
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          push: true
-          tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/hackathon-api:latest
-          platforms: linux/amd64
-        if: github.ref == 'refs/heads/main'
-
       - name: Build and Push Docker Image develop branch
         uses: docker/build-push-action@v6
         with:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/hackathon-api:develop
+            ${{ secrets.DOCKERHUB_USERNAME }}/tokogo-api:develop
           platforms: linux/amd64
         if: github.ref == 'refs/heads/develop'

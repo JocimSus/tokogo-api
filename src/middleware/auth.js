@@ -5,13 +5,21 @@ export async function getAuthUser(req) {
   const token = req.cookies?.session || req.headers?.authorization?.split?.(' ')[1];
   if (!token) return null;
   const payload = verifyToken(token);
-  if (!payload?.sub) return null;
+  if (!payload?.sub || !payload?.merchant_id) return null;
 
   const { rows } = await pool.query(
-    'SELECT id, email, role, name, phone, created_at FROM app_user WHERE id = $1',
-    [payload.sub]
+    `SELECT id, email, store_name FROM merchant WHERE id = $1`,
+    [payload.merchant_id]
   );
-  return rows[0] ?? null;
+  if (!rows[0]) return null;
+  const merchant = rows[0];
+  return {
+    id: merchant.id,
+    merchant_id: merchant.id,
+    email: merchant.email,
+    role: payload.role,
+    store_name: merchant.store_name
+  };
 }
 
 export function requireAuth() {

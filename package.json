@@ -1,11 +1,15 @@
 {
-  "name": "server",
+  "name": "tokogo-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Backend API for merchant product detection and management",
+  "type": "module",
+  "main": "server.js",
   "scripts": {
-    "dev": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "db:migrate": "node scripts/migrate.js",
+    "lint": "echo \"lint not configured yet\"",
+    "test": "echo \"tests not configured yet\""
   },
   "keywords": [],
   "author": "",
@@ -20,6 +24,7 @@
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.11",
     "pg": "^8.16.3",
     "swagger-ui-express": "^5.0.1",
